@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Alternate PHP Syntax for View Files &mdash; CodeIgniter 3.1.11 documentation</title>
+  <title>Error Handling &mdash; CodeIgniter 3.1.11 documentation</title>
   
 
   
@@ -35,8 +35,8 @@
         <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="CodeIgniter 3.1.11 documentation" href="../index.html"/>
         <link rel="up" title="General Topics" href="index.html"/>
-        <link rel="next" title="Security" href="security.html"/>
-        <link rel="prev" title="Handling Multiple Environments" href="environments.html"/> 
+        <link rel="next" title="Web Page Caching" href="caching.html"/>
+        <link rel="prev" title="URI Routing" href="routing.html"/> 
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
@@ -109,13 +109,13 @@
 <li class="toctree-l2"><a class="reference internal" href="common_functions.html">Common Functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="compatibility_functions.html">Compatibility Functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="routing.html">URI Routing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="errors.html">Error Handling</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Error Handling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="caching.html">Caching</a></li>
 <li class="toctree-l2"><a class="reference internal" href="profiling.html">Profiling Your Application</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cli.html">Running via the CLI</a></li>
 <li class="toctree-l2"><a class="reference internal" href="managing_apps.html">Managing your Applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="environments.html">Handling Multiple Environments</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Alternate PHP Syntax for View Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alternative_php.html">Alternate PHP Syntax for View Files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="security.html">Security</a></li>
 <li class="toctree-l2"><a class="reference internal" href="styleguide.html">PHP Style Guide</a></li>
 </ul>
@@ -293,13 +293,13 @@
 <li class="toctree-l2"><a class="reference internal" href="common_functions.html">Common Functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="compatibility_functions.html">Compatibility Functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="routing.html">URI Routing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="errors.html">Error Handling</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Error Handling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="caching.html">Caching</a></li>
 <li class="toctree-l2"><a class="reference internal" href="profiling.html">Profiling Your Application</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cli.html">Running via the CLI</a></li>
 <li class="toctree-l2"><a class="reference internal" href="managing_apps.html">Managing your Applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="environments.html">Handling Multiple Environments</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Alternate PHP Syntax for View Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alternative_php.html">Alternate PHP Syntax for View Files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="security.html">Security</a></li>
 <li class="toctree-l2"><a class="reference internal" href="styleguide.html">PHP Style Guide</a></li>
 </ul>
@@ -410,7 +410,7 @@
       
         <li><a href="index.html">General Topics</a> &raquo;</li>
       
-    <li>Alternate PHP Syntax for View Files</li>
+    <li>Error Handling</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -422,78 +422,161 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="alternate-php-syntax-for-view-files">
-<h1>Alternate PHP Syntax for View Files<a class="headerlink" href="#alternate-php-syntax-for-view-files" title="Permalink to this headline">¶</a></h1>
-<p>If you do not utilize CodeIgniter’s <a class="reference internal" href="../libraries/parser.html"><span class="doc">template
-engine</span></a>, you’ll be using pure PHP in your
-View files. To minimize the PHP code in these files, and to make it
-easier to identify the code blocks it is recommended that you use PHPs
-alternative syntax for control structures and short tag echo statements.
-If you are not familiar with this syntax, it allows you to eliminate the
-braces from your code, and eliminate “echo” statements.</p>
-<div class="section" id="automatic-short-tag-support">
-<h2>Automatic Short Tag Support<a class="headerlink" href="#automatic-short-tag-support" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="error-handling">
+<h1>Error Handling<a class="headerlink" href="#error-handling" title="Permalink to this headline">¶</a></h1>
+<p>CodeIgniter lets you build error reporting into your applications using
+the functions described below. In addition, it has an error logging
+class that permits error and debugging messages to be saved as text
+files.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">If you find that the syntax described in this page does not
-work on your server it might be that “short tags” are disabled in your
-PHP ini file. CodeIgniter will optionally rewrite short tags on-the-fly,
-allowing you to use that syntax even if your server doesn’t support it.
-This feature can be enabled in your <em>config/config.php</em> file.</p>
+<p class="last">By default, CodeIgniter displays all PHP errors. You might
+wish to change this behavior once your development is complete. You’ll
+find the error_reporting() function located at the top of your main
+index.php file. Disabling error reporting will NOT prevent log files
+from being written if there are errors.</p>
 </div>
-<p>Please note that if you do use this feature, if PHP errors are
-encountered in your <strong>view files</strong>, the error message and line number
-will not be accurately shown. Instead, all errors will be shown as
-<code class="docutils literal"><span class="pre">eval()</span></code> errors.</p>
-</div>
-<div class="section" id="alternative-echos">
-<h2>Alternative Echos<a class="headerlink" href="#alternative-echos" title="Permalink to this headline">¶</a></h2>
-<p>Normally to echo, or print out a variable you would do this:</p>
-<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">echo</span> <span class="nv">$variable</span><span class="p">;</span> <span class="cp">?&gt;</span>
+<p>Unlike most systems in CodeIgniter, the error functions are simple
+procedural interfaces that are available globally throughout the
+application. This approach permits error messages to get triggered
+without having to worry about class/function scoping.</p>
+<p>CodeIgniter also returns a status code whenever a portion of the core
+calls <code class="docutils literal"><span class="pre">exit()</span></code>. This exit status code is separate from the HTTP status
+code, and serves as a notice to other processes that may be watching of
+whether the script completed successfully, or if not, what kind of
+problem it encountered that caused it to abort. These values are
+defined in <em>application/config/constants.php</em>. While exit status codes
+are most useful in CLI settings, returning the proper code helps server
+software keep track of your scripts and the health of your application.</p>
+<p>The following functions let you generate errors:</p>
+<dl class="function">
+<dt id="show_error">
+<code class="descname">show_error</code><span class="sig-paren">(</span><em>$message</em>, <em>$status_code</em>, <em>$heading = 'An Error Was Encountered'</em><span class="sig-paren">)</span><a class="headerlink" href="#show_error" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$message</strong> (<em>mixed</em>) – Error message</li>
+<li><strong>$status_code</strong> (<em>int</em>) – HTTP Response status code</li>
+<li><strong>$heading</strong> (<em>string</em>) – Error page heading</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">void</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>This function will display the error message supplied to it using
+the error template appropriate to your execution:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nx">application</span><span class="o">/</span><span class="nx">views</span><span class="o">/</span><span class="nx">errors</span><span class="o">/</span><span class="nx">html</span><span class="o">/</span><span class="nx">error_general</span><span class="o">.</span><span class="nx">php</span>
 </pre></div>
 </div>
-<p>With the alternative syntax you can instead do it this way:</p>
-<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span><span class="nv">$variable</span><span class="cp">?&gt;</span>
+<p>or:</p>
+<blockquote>
+<div>application/views/errors/cli/error_general.php</div></blockquote>
+<p>The optional parameter <code class="docutils literal"><span class="pre">$status_code</span></code> determines what HTTP status
+code should be sent with the error. If <code class="docutils literal"><span class="pre">$status_code</span></code> is less
+than 100, the HTTP status code will be set to 500, and the exit
+status code will be set to <code class="docutils literal"><span class="pre">$status_code</span> <span class="pre">+</span> <span class="pre">EXIT__AUTO_MIN</span></code>.
+If that value is larger than <code class="docutils literal"><span class="pre">EXIT__AUTO_MAX</span></code>, or if
+<code class="docutils literal"><span class="pre">$status_code</span></code> is 100 or higher, the exit status code will be set
+to <code class="docutils literal"><span class="pre">EXIT_ERROR</span></code>.
+You can check in <em>application/config/constants.php</em> for more detail.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="show_404">
+<code class="descname">show_404</code><span class="sig-paren">(</span><em>$page = ''</em>, <em>$log_error = TRUE</em><span class="sig-paren">)</span><a class="headerlink" href="#show_404" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$page</strong> (<em>string</em>) – URI string</li>
+<li><strong>$log_error</strong> (<em>bool</em>) – Whether to log the error</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">void</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>This function will display the 404 error message supplied to it
+using the error template appropriate to your execution:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nx">application</span><span class="o">/</span><span class="nx">views</span><span class="o">/</span><span class="nx">errors</span><span class="o">/</span><span class="nx">html</span><span class="o">/</span><span class="nx">error_404</span><span class="o">.</span><span class="nx">php</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="alternative-control-structures">
-<h2>Alternative Control Structures<a class="headerlink" href="#alternative-control-structures" title="Permalink to this headline">¶</a></h2>
-<p>Controls structures, like if, for, foreach, and while can be written in
-a simplified format as well. Here is an example using <code class="docutils literal"><span class="pre">foreach</span></code>:</p>
-<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">ul</span><span class="o">&gt;</span>
+<p>or:</p>
+<blockquote>
+<div>application/views/errors/cli/error_404.php</div></blockquote>
+<p>The function expects the string passed to it to be the file path to
+the page that isn’t found. The exit status code will be set to
+<code class="docutils literal"><span class="pre">EXIT_UNKNOWN_FILE</span></code>.
+Note that CodeIgniter automatically shows 404 messages if
+controllers are not found.</p>
+<p>CodeIgniter automatically logs any <code class="docutils literal"><span class="pre">show_404()</span></code> calls. Setting the
+optional second parameter to FALSE will skip logging.</p>
+</dd></dl>
 
-<span class="o">&lt;?</span><span class="nx">php</span> <span class="k">foreach</span> <span class="p">(</span><span class="nv">$todo</span> <span class="k">as</span> <span class="nv">$item</span><span class="p">)</span><span class="o">:</span> <span class="cp">?&gt;</span>
+<dl class="function">
+<dt id="log_message">
+<code class="descname">log_message</code><span class="sig-paren">(</span><em>$level</em>, <em>$message</em><span class="sig-paren">)</span><a class="headerlink" href="#log_message" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$level</strong> (<em>string</em>) – Log level: ‘error’, ‘debug’ or ‘info’</li>
+<li><strong>$message</strong> (<em>string</em>) – Message to log</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">void</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>This function lets you write messages to your log files. You must
+supply one of three “levels” in the first parameter, indicating what
+type of message it is (debug, error, info), with the message itself
+in the second parameter.</p>
+<p>Example:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nv">$some_var</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="nx">log_message</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s1">&#39;Some variable did not contain a value.&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">else</span>
+<span class="p">{</span>
+        <span class="nx">log_message</span><span class="p">(</span><span class="s1">&#39;debug&#39;</span><span class="p">,</span> <span class="s1">&#39;Some variable was correctly set&#39;</span><span class="p">);</span>
+<span class="p">}</span>
 
-        <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span><span class="cp">&lt;?</span><span class="o">=</span><span class="nv">$item</span><span class="cp">?&gt;</span><span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
-
-<span class="cp">&lt;?php</span> <span class="k">endforeach</span><span class="p">;</span> <span class="cp">?&gt;</span>
-
-<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+<span class="nx">log_message</span><span class="p">(</span><span class="s1">&#39;info&#39;</span><span class="p">,</span> <span class="s1">&#39;The purpose of some variable is to provide some value.&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Notice that there are no braces. Instead, the end brace is replaced with
-<code class="docutils literal"><span class="pre">endforeach</span></code>. Each of the control structures listed above has a similar
-closing syntax: <code class="docutils literal"><span class="pre">endif</span></code>, <code class="docutils literal"><span class="pre">endfor</span></code>, <code class="docutils literal"><span class="pre">endforeach</span></code>, and <code class="docutils literal"><span class="pre">endwhile</span></code></p>
-<p>Also notice that instead of using a semicolon after each structure
-(except the last one), there is a colon. This is important!</p>
-<p>Here is another example, using <code class="docutils literal"><span class="pre">if</span></code>/<code class="docutils literal"><span class="pre">elseif</span></code>/<code class="docutils literal"><span class="pre">else</span></code>. Notice the colons:</p>
-<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">if</span> <span class="p">(</span><span class="nv">$username</span> <span class="o">===</span> <span class="s1">&#39;sally&#39;</span><span class="p">)</span><span class="o">:</span> <span class="cp">?&gt;</span>
-
-        <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>Hi Sally<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
-
-<span class="cp">&lt;?php</span> <span class="k">elseif</span> <span class="p">(</span><span class="nv">$username</span> <span class="o">===</span> <span class="s1">&#39;joe&#39;</span><span class="p">)</span><span class="o">:</span> <span class="cp">?&gt;</span>
-
-        <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>Hi Joe<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
-
-<span class="cp">&lt;?php</span> <span class="k">else</span><span class="o">:</span> <span class="cp">?&gt;</span>
-
-        <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>Hi unknown user<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
-
-<span class="cp">&lt;?php</span> <span class="k">endif</span><span class="p">;</span> <span class="cp">?&gt;</span>
-</pre></div>
+<p>There are three message types:</p>
+<ol class="arabic simple">
+<li>Error Messages. These are actual errors, such as PHP errors or
+user errors.</li>
+<li>Debug Messages. These are messages that assist in debugging. For
+example, if a class has been initialized, you could log this as
+debugging info.</li>
+<li>Informational Messages. These are the lowest priority messages,
+simply giving information regarding some process.</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In order for the log file to actually be written, the
+<em>logs/</em> directory must be writable. In addition, you must
+set the “threshold” for logging in
+<em>application/config/config.php</em>. You might, for example,
+only want error messages to be logged, and not the other
+two types. If you set it to zero logging will be disabled.</p>
 </div>
-</div>
+</dd></dl>
+
 </div>
 
 
@@ -502,10 +585,10 @@ closing syntax: <code class="docutils literal"><span class="pre">endif</span></c
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="security.html" class="btn btn-neutral float-right" title="Security">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="caching.html" class="btn btn-neutral float-right" title="Web Page Caching">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="environments.html" class="btn btn-neutral" title="Handling Multiple Environments"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="routing.html" class="btn btn-neutral" title="URI Routing"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

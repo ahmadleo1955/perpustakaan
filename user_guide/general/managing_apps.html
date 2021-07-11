@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Alternate PHP Syntax for View Files &mdash; CodeIgniter 3.1.11 documentation</title>
+  <title>Managing your Applications &mdash; CodeIgniter 3.1.11 documentation</title>
   
 
   
@@ -35,8 +35,8 @@
         <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="CodeIgniter 3.1.11 documentation" href="../index.html"/>
         <link rel="up" title="General Topics" href="index.html"/>
-        <link rel="next" title="Security" href="security.html"/>
-        <link rel="prev" title="Handling Multiple Environments" href="environments.html"/> 
+        <link rel="next" title="Handling Multiple Environments" href="environments.html"/>
+        <link rel="prev" title="Running via the CLI" href="cli.html"/> 
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
@@ -113,9 +113,9 @@
 <li class="toctree-l2"><a class="reference internal" href="caching.html">Caching</a></li>
 <li class="toctree-l2"><a class="reference internal" href="profiling.html">Profiling Your Application</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cli.html">Running via the CLI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="managing_apps.html">Managing your Applications</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Managing your Applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="environments.html">Handling Multiple Environments</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Alternate PHP Syntax for View Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alternative_php.html">Alternate PHP Syntax for View Files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="security.html">Security</a></li>
 <li class="toctree-l2"><a class="reference internal" href="styleguide.html">PHP Style Guide</a></li>
 </ul>
@@ -297,9 +297,9 @@
 <li class="toctree-l2"><a class="reference internal" href="caching.html">Caching</a></li>
 <li class="toctree-l2"><a class="reference internal" href="profiling.html">Profiling Your Application</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cli.html">Running via the CLI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="managing_apps.html">Managing your Applications</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Managing your Applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="environments.html">Handling Multiple Environments</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Alternate PHP Syntax for View Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alternative_php.html">Alternate PHP Syntax for View Files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="security.html">Security</a></li>
 <li class="toctree-l2"><a class="reference internal" href="styleguide.html">PHP Style Guide</a></li>
 </ul>
@@ -410,7 +410,7 @@
       
         <li><a href="index.html">General Topics</a> &raquo;</li>
       
-    <li>Alternate PHP Syntax for View Files</li>
+    <li>Managing your Applications</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -422,76 +422,64 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="alternate-php-syntax-for-view-files">
-<h1>Alternate PHP Syntax for View Files<a class="headerlink" href="#alternate-php-syntax-for-view-files" title="Permalink to this headline">¶</a></h1>
-<p>If you do not utilize CodeIgniter’s <a class="reference internal" href="../libraries/parser.html"><span class="doc">template
-engine</span></a>, you’ll be using pure PHP in your
-View files. To minimize the PHP code in these files, and to make it
-easier to identify the code blocks it is recommended that you use PHPs
-alternative syntax for control structures and short tag echo statements.
-If you are not familiar with this syntax, it allows you to eliminate the
-braces from your code, and eliminate “echo” statements.</p>
-<div class="section" id="automatic-short-tag-support">
-<h2>Automatic Short Tag Support<a class="headerlink" href="#automatic-short-tag-support" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="managing-your-applications">
+<h1>Managing your Applications<a class="headerlink" href="#managing-your-applications" title="Permalink to this headline">¶</a></h1>
+<p>By default it is assumed that you only intend to use CodeIgniter to
+manage one application, which you will build in your <em>application/</em>
+directory. It is possible, however, to have multiple sets of
+applications that share a single CodeIgniter installation, or even to
+rename or relocate your application directory.</p>
+<div class="section" id="renaming-the-application-directory">
+<h2>Renaming the Application Directory<a class="headerlink" href="#renaming-the-application-directory" title="Permalink to this headline">¶</a></h2>
+<p>If you would like to rename your application directory you may do so
+as long as you open your main index.php file and set its name using
+the <code class="docutils literal"><span class="pre">$application_folder</span></code> variable:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$application_folder</span> <span class="o">=</span> <span class="s1">&#39;application&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="relocating-your-application-directory">
+<h2>Relocating your Application Directory<a class="headerlink" href="#relocating-your-application-directory" title="Permalink to this headline">¶</a></h2>
+<p>It is possible to move your application directory to a different
+location on your server than your web root. To do so open
+your main index.php and set a <em>full server path</em> in the
+<code class="docutils literal"><span class="pre">$application_folder</span></code> variable:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$application_folder</span> <span class="o">=</span> <span class="s1">&#39;/path/to/your/application&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="running-multiple-applications-with-one-codeigniter-installation">
+<h2>Running Multiple Applications with one CodeIgniter Installation<a class="headerlink" href="#running-multiple-applications-with-one-codeigniter-installation" title="Permalink to this headline">¶</a></h2>
+<p>If you would like to share a common CodeIgniter installation to manage
+several different applications simply put all of the directories located
+inside your application directory into their own sub-directory.</p>
+<p>For example, let’s say you want to create two applications, named “foo”
+and “bar”. You could structure your application directories like this:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nx">applications</span><span class="o">/</span><span class="nx">foo</span><span class="o">/</span>
+<span class="nx">applications</span><span class="o">/</span><span class="nx">foo</span><span class="o">/</span><span class="nx">config</span><span class="o">/</span>
+<span class="nx">applications</span><span class="o">/</span><span class="nx">foo</span><span class="o">/</span><span class="nx">controllers</span><span class="o">/</span>
+<span class="nx">applications</span><span class="o">/</span><span class="nx">foo</span><span class="o">/</span><span class="nx">libraries</span><span class="o">/</span>
+<span class="nx">applications</span><span class="o">/</span><span class="nx">foo</span><span class="o">/</span><span class="nx">models</span><span class="o">/</span>
+<span class="nx">applications</span><span class="o">/</span><span class="nx">foo</span><span class="o">/</span><span class="nx">views</span><span class="o">/</span>
+<span class="nx">applications</span><span class="o">/</span><span class="nx">bar</span><span class="o">/</span>
+<span class="nx">applications</span><span class="o">/</span><span class="nx">bar</span><span class="o">/</span><span class="nx">config</span><span class="o">/</span>
+<span class="nx">applications</span><span class="o">/</span><span class="nx">bar</span><span class="o">/</span><span class="nx">controllers</span><span class="o">/</span>
+<span class="nx">applications</span><span class="o">/</span><span class="nx">bar</span><span class="o">/</span><span class="nx">libraries</span><span class="o">/</span>
+<span class="nx">applications</span><span class="o">/</span><span class="nx">bar</span><span class="o">/</span><span class="nx">models</span><span class="o">/</span>
+<span class="nx">applications</span><span class="o">/</span><span class="nx">bar</span><span class="o">/</span><span class="nx">views</span><span class="o">/</span>
+</pre></div>
+</div>
+<p>To select a particular application for use requires that you open your
+main index.php file and set the <code class="docutils literal"><span class="pre">$application_folder</span></code> variable. For
+example, to select the “foo” application for use you would do this:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$application_folder</span> <span class="o">=</span> <span class="s1">&#39;applications/foo&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">If you find that the syntax described in this page does not
-work on your server it might be that “short tags” are disabled in your
-PHP ini file. CodeIgniter will optionally rewrite short tags on-the-fly,
-allowing you to use that syntax even if your server doesn’t support it.
-This feature can be enabled in your <em>config/config.php</em> file.</p>
-</div>
-<p>Please note that if you do use this feature, if PHP errors are
-encountered in your <strong>view files</strong>, the error message and line number
-will not be accurately shown. Instead, all errors will be shown as
-<code class="docutils literal"><span class="pre">eval()</span></code> errors.</p>
-</div>
-<div class="section" id="alternative-echos">
-<h2>Alternative Echos<a class="headerlink" href="#alternative-echos" title="Permalink to this headline">¶</a></h2>
-<p>Normally to echo, or print out a variable you would do this:</p>
-<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">echo</span> <span class="nv">$variable</span><span class="p">;</span> <span class="cp">?&gt;</span>
-</pre></div>
-</div>
-<p>With the alternative syntax you can instead do it this way:</p>
-<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span><span class="nv">$variable</span><span class="cp">?&gt;</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="alternative-control-structures">
-<h2>Alternative Control Structures<a class="headerlink" href="#alternative-control-structures" title="Permalink to this headline">¶</a></h2>
-<p>Controls structures, like if, for, foreach, and while can be written in
-a simplified format as well. Here is an example using <code class="docutils literal"><span class="pre">foreach</span></code>:</p>
-<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">ul</span><span class="o">&gt;</span>
-
-<span class="o">&lt;?</span><span class="nx">php</span> <span class="k">foreach</span> <span class="p">(</span><span class="nv">$todo</span> <span class="k">as</span> <span class="nv">$item</span><span class="p">)</span><span class="o">:</span> <span class="cp">?&gt;</span>
-
-        <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span><span class="cp">&lt;?</span><span class="o">=</span><span class="nv">$item</span><span class="cp">?&gt;</span><span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
-
-<span class="cp">&lt;?php</span> <span class="k">endforeach</span><span class="p">;</span> <span class="cp">?&gt;</span>
-
-<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
-</pre></div>
-</div>
-<p>Notice that there are no braces. Instead, the end brace is replaced with
-<code class="docutils literal"><span class="pre">endforeach</span></code>. Each of the control structures listed above has a similar
-closing syntax: <code class="docutils literal"><span class="pre">endif</span></code>, <code class="docutils literal"><span class="pre">endfor</span></code>, <code class="docutils literal"><span class="pre">endforeach</span></code>, and <code class="docutils literal"><span class="pre">endwhile</span></code></p>
-<p>Also notice that instead of using a semicolon after each structure
-(except the last one), there is a colon. This is important!</p>
-<p>Here is another example, using <code class="docutils literal"><span class="pre">if</span></code>/<code class="docutils literal"><span class="pre">elseif</span></code>/<code class="docutils literal"><span class="pre">else</span></code>. Notice the colons:</p>
-<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">if</span> <span class="p">(</span><span class="nv">$username</span> <span class="o">===</span> <span class="s1">&#39;sally&#39;</span><span class="p">)</span><span class="o">:</span> <span class="cp">?&gt;</span>
-
-        <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>Hi Sally<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
-
-<span class="cp">&lt;?php</span> <span class="k">elseif</span> <span class="p">(</span><span class="nv">$username</span> <span class="o">===</span> <span class="s1">&#39;joe&#39;</span><span class="p">)</span><span class="o">:</span> <span class="cp">?&gt;</span>
-
-        <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>Hi Joe<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
-
-<span class="cp">&lt;?php</span> <span class="k">else</span><span class="o">:</span> <span class="cp">?&gt;</span>
-
-        <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>Hi unknown user<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
-
-<span class="cp">&lt;?php</span> <span class="k">endif</span><span class="p">;</span> <span class="cp">?&gt;</span>
-</pre></div>
+<p class="last">Each of your applications will need its own index.php file
+which calls the desired application. The index.php file can be named
+anything you want.</p>
 </div>
 </div>
 </div>
@@ -502,10 +490,10 @@ closing syntax: <code class="docutils literal"><span class="pre">endif</span></c
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="security.html" class="btn btn-neutral float-right" title="Security">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="environments.html" class="btn btn-neutral float-right" title="Handling Multiple Environments">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="environments.html" class="btn btn-neutral" title="Handling Multiple Environments"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="cli.html" class="btn btn-neutral" title="Running via the CLI"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

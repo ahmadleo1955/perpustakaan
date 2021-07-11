@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Alternate PHP Syntax for View Files &mdash; CodeIgniter 3.1.11 documentation</title>
+  <title>Compatibility Functions &mdash; CodeIgniter 3.1.11 documentation</title>
   
 
   
@@ -35,8 +35,8 @@
         <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="CodeIgniter 3.1.11 documentation" href="../index.html"/>
         <link rel="up" title="General Topics" href="index.html"/>
-        <link rel="next" title="Security" href="security.html"/>
-        <link rel="prev" title="Handling Multiple Environments" href="environments.html"/> 
+        <link rel="next" title="URI Routing" href="routing.html"/>
+        <link rel="prev" title="Common Functions" href="common_functions.html"/> 
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
@@ -107,7 +107,7 @@
 <li class="toctree-l2"><a class="reference internal" href="hooks.html">Hooks - Extending the Framework Core</a></li>
 <li class="toctree-l2"><a class="reference internal" href="autoloader.html">Auto-loading Resources</a></li>
 <li class="toctree-l2"><a class="reference internal" href="common_functions.html">Common Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="compatibility_functions.html">Compatibility Functions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Compatibility Functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="routing.html">URI Routing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="errors.html">Error Handling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="caching.html">Caching</a></li>
@@ -115,7 +115,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cli.html">Running via the CLI</a></li>
 <li class="toctree-l2"><a class="reference internal" href="managing_apps.html">Managing your Applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="environments.html">Handling Multiple Environments</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Alternate PHP Syntax for View Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alternative_php.html">Alternate PHP Syntax for View Files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="security.html">Security</a></li>
 <li class="toctree-l2"><a class="reference internal" href="styleguide.html">PHP Style Guide</a></li>
 </ul>
@@ -291,7 +291,7 @@
 <li class="toctree-l2"><a class="reference internal" href="hooks.html">Hooks - Extending the Framework Core</a></li>
 <li class="toctree-l2"><a class="reference internal" href="autoloader.html">Auto-loading Resources</a></li>
 <li class="toctree-l2"><a class="reference internal" href="common_functions.html">Common Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="compatibility_functions.html">Compatibility Functions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Compatibility Functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="routing.html">URI Routing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="errors.html">Error Handling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="caching.html">Caching</a></li>
@@ -299,7 +299,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cli.html">Running via the CLI</a></li>
 <li class="toctree-l2"><a class="reference internal" href="managing_apps.html">Managing your Applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="environments.html">Handling Multiple Environments</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Alternate PHP Syntax for View Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alternative_php.html">Alternate PHP Syntax for View Files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="security.html">Security</a></li>
 <li class="toctree-l2"><a class="reference internal" href="styleguide.html">PHP Style Guide</a></li>
 </ul>
@@ -410,7 +410,7 @@
       
         <li><a href="index.html">General Topics</a> &raquo;</li>
       
-    <li>Alternate PHP Syntax for View Files</li>
+    <li>Compatibility Functions</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -422,76 +422,424 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="alternate-php-syntax-for-view-files">
-<h1>Alternate PHP Syntax for View Files<a class="headerlink" href="#alternate-php-syntax-for-view-files" title="Permalink to this headline">¶</a></h1>
-<p>If you do not utilize CodeIgniter’s <a class="reference internal" href="../libraries/parser.html"><span class="doc">template
-engine</span></a>, you’ll be using pure PHP in your
-View files. To minimize the PHP code in these files, and to make it
-easier to identify the code blocks it is recommended that you use PHPs
-alternative syntax for control structures and short tag echo statements.
-If you are not familiar with this syntax, it allows you to eliminate the
-braces from your code, and eliminate “echo” statements.</p>
-<div class="section" id="automatic-short-tag-support">
-<h2>Automatic Short Tag Support<a class="headerlink" href="#automatic-short-tag-support" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="compatibility-functions">
+<h1>Compatibility Functions<a class="headerlink" href="#compatibility-functions" title="Permalink to this headline">¶</a></h1>
+<p>CodeIgniter provides a set of compatibility functions that enable
+you to use functions what are otherwise natively available in PHP,
+but only in higher versions or depending on a certain extension.</p>
+<p>Being custom implementations, these functions will also have some
+set of dependencies on their own, but are still useful if your
+PHP setup doesn’t offer them natively.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">If you find that the syntax described in this page does not
-work on your server it might be that “short tags” are disabled in your
-PHP ini file. CodeIgniter will optionally rewrite short tags on-the-fly,
-allowing you to use that syntax even if your server doesn’t support it.
-This feature can be enabled in your <em>config/config.php</em> file.</p>
+<p class="last">Much like the <a class="reference internal" href="common_functions.html"><span class="doc">common functions</span></a>, the
+compatibility functions are always available, as long as
+their dependencies are met.</p>
 </div>
-<p>Please note that if you do use this feature, if PHP errors are
-encountered in your <strong>view files</strong>, the error message and line number
-will not be accurately shown. Instead, all errors will be shown as
-<code class="docutils literal"><span class="pre">eval()</span></code> errors.</p>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#password-hashing" id="id7">Password Hashing</a><ul>
+<li><a class="reference internal" href="#dependencies" id="id8">Dependencies</a></li>
+<li><a class="reference internal" href="#constants" id="id9">Constants</a></li>
+<li><a class="reference internal" href="#function-reference" id="id10">Function reference</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#hash-message-digest" id="id11">Hash (Message Digest)</a><ul>
+<li><a class="reference internal" href="#id1" id="id12">Dependencies</a></li>
+<li><a class="reference internal" href="#id2" id="id13">Function reference</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#multibyte-string" id="id14">Multibyte String</a><ul>
+<li><a class="reference internal" href="#id3" id="id15">Dependencies</a></li>
+<li><a class="reference internal" href="#id4" id="id16">Function reference</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#standard-functions" id="id17">Standard Functions</a><ul>
+<li><a class="reference internal" href="#id5" id="id18">Dependencies</a></li>
+<li><a class="reference internal" href="#id6" id="id19">Function reference</a></li>
+</ul>
+</li>
+</ul>
 </div>
-<div class="section" id="alternative-echos">
-<h2>Alternative Echos<a class="headerlink" href="#alternative-echos" title="Permalink to this headline">¶</a></h2>
-<p>Normally to echo, or print out a variable you would do this:</p>
-<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">echo</span> <span class="nv">$variable</span><span class="p">;</span> <span class="cp">?&gt;</span>
-</pre></div>
+<div class="custom-index container"></div><div class="section" id="password-hashing">
+<h2><a class="toc-backref" href="#id7">Password Hashing</a><a class="headerlink" href="#password-hashing" title="Permalink to this headline">¶</a></h2>
+<p>This set of compatibility functions offers a “backport” of PHP’s
+standard <a class="reference external" href="http://php.net/password">Password Hashing extension</a>
+that is otherwise available only since PHP 5.5.</p>
+<div class="section" id="dependencies">
+<h3><a class="toc-backref" href="#id8">Dependencies</a><a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>PHP 5.3.7</li>
+<li><code class="docutils literal"><span class="pre">CRYPT_BLOWFISH</span></code> support for <code class="docutils literal"><span class="pre">crypt()</span></code></li>
+</ul>
 </div>
-<p>With the alternative syntax you can instead do it this way:</p>
-<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span><span class="nv">$variable</span><span class="cp">?&gt;</span>
-</pre></div>
+<div class="section" id="constants">
+<h3><a class="toc-backref" href="#id9">Constants</a><a class="headerlink" href="#constants" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">PASSWORD_BCRYPT</span></code></li>
+<li><code class="docutils literal"><span class="pre">PASSWORD_DEFAULT</span></code></li>
+</ul>
+</div>
+<div class="section" id="function-reference">
+<h3><a class="toc-backref" href="#id10">Function reference</a><a class="headerlink" href="#function-reference" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="password_get_info">
+<code class="descname">password_get_info</code><span class="sig-paren">(</span><em>$hash</em><span class="sig-paren">)</span><a class="headerlink" href="#password_get_info" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$hash</strong> (<em>string</em>) – Password hash</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Information about the hashed password</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">array</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>For more information, please refer to the <a class="reference external" href="http://php.net/password_get_info">PHP manual for
+password_get_info()</a>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="password_hash">
+<code class="descname">password_hash</code><span class="sig-paren">(</span><em>$password</em>, <em>$algo</em><span class="optional">[</span>, <em>$options = array()</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#password_hash" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$password</strong> (<em>string</em>) – Plain-text password</li>
+<li><strong>$algo</strong> (<em>int</em>) – Hashing algorithm</li>
+<li><strong>$options</strong> (<em>array</em>) – Hashing options</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Hashed password or FALSE on failure</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">string</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>For more information, please refer to the <a class="reference external" href="http://php.net/password_hash">PHP manual for
+password_hash()</a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Unless you provide your own (and valid) salt, this function
+has a further dependency on an available CSPRNG source. Each
+of the following would satisfy that:
+- <code class="docutils literal"><span class="pre">mcrypt_create_iv()</span></code> with <code class="docutils literal"><span class="pre">MCRYPT_DEV_URANDOM</span></code>
+- <code class="docutils literal"><span class="pre">openssl_random_pseudo_bytes()</span></code>
+- /dev/arandom
+- /dev/urandom</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="password_needs_rehash">
+<code class="descname">password_needs_rehash</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#password_needs_rehash" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$hash</strong> (<em>string</em>) – Password hash</li>
+<li><strong>$algo</strong> (<em>int</em>) – Hashing algorithm</li>
+<li><strong>$options</strong> (<em>array</em>) – Hashing options</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">TRUE if the hash should be rehashed to match the given algorithm and options, FALSE otherwise</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">bool</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>For more information, please refer to the <a class="reference external" href="http://php.net/password_needs_rehash">PHP manual for
+password_needs_rehash()</a>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="password_verify">
+<code class="descname">password_verify</code><span class="sig-paren">(</span><em>$password</em>, <em>$hash</em><span class="sig-paren">)</span><a class="headerlink" href="#password_verify" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$password</strong> (<em>string</em>) – Plain-text password</li>
+<li><strong>$hash</strong> (<em>string</em>) – Password hash</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">TRUE if the password matches the hash, FALSE if not</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">bool</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>For more information, please refer to the <a class="reference external" href="http://php.net/password_verify">PHP manual for
+password_verify()</a>.</p>
+</dd></dl>
+
 </div>
 </div>
-<div class="section" id="alternative-control-structures">
-<h2>Alternative Control Structures<a class="headerlink" href="#alternative-control-structures" title="Permalink to this headline">¶</a></h2>
-<p>Controls structures, like if, for, foreach, and while can be written in
-a simplified format as well. Here is an example using <code class="docutils literal"><span class="pre">foreach</span></code>:</p>
-<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">ul</span><span class="o">&gt;</span>
-
-<span class="o">&lt;?</span><span class="nx">php</span> <span class="k">foreach</span> <span class="p">(</span><span class="nv">$todo</span> <span class="k">as</span> <span class="nv">$item</span><span class="p">)</span><span class="o">:</span> <span class="cp">?&gt;</span>
-
-        <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span><span class="cp">&lt;?</span><span class="o">=</span><span class="nv">$item</span><span class="cp">?&gt;</span><span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
-
-<span class="cp">&lt;?php</span> <span class="k">endforeach</span><span class="p">;</span> <span class="cp">?&gt;</span>
-
-<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
-</pre></div>
+<div class="section" id="hash-message-digest">
+<h2><a class="toc-backref" href="#id11">Hash (Message Digest)</a><a class="headerlink" href="#hash-message-digest" title="Permalink to this headline">¶</a></h2>
+<p>This compatibility layer contains backports for the <code class="docutils literal"><span class="pre">hash_equals()</span></code>
+and <code class="docutils literal"><span class="pre">hash_pbkdf2()</span></code> functions, which otherwise require PHP 5.6 and/or
+PHP 5.5 respectively.</p>
+<div class="section" id="id1">
+<h3><a class="toc-backref" href="#id12">Dependencies</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>None</li>
+</ul>
 </div>
-<p>Notice that there are no braces. Instead, the end brace is replaced with
-<code class="docutils literal"><span class="pre">endforeach</span></code>. Each of the control structures listed above has a similar
-closing syntax: <code class="docutils literal"><span class="pre">endif</span></code>, <code class="docutils literal"><span class="pre">endfor</span></code>, <code class="docutils literal"><span class="pre">endforeach</span></code>, and <code class="docutils literal"><span class="pre">endwhile</span></code></p>
-<p>Also notice that instead of using a semicolon after each structure
-(except the last one), there is a colon. This is important!</p>
-<p>Here is another example, using <code class="docutils literal"><span class="pre">if</span></code>/<code class="docutils literal"><span class="pre">elseif</span></code>/<code class="docutils literal"><span class="pre">else</span></code>. Notice the colons:</p>
-<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">if</span> <span class="p">(</span><span class="nv">$username</span> <span class="o">===</span> <span class="s1">&#39;sally&#39;</span><span class="p">)</span><span class="o">:</span> <span class="cp">?&gt;</span>
+<div class="section" id="id2">
+<h3><a class="toc-backref" href="#id13">Function reference</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="hash_equals">
+<code class="descname">hash_equals</code><span class="sig-paren">(</span><em>$known_string</em>, <em>$user_string</em><span class="sig-paren">)</span><a class="headerlink" href="#hash_equals" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$known_string</strong> (<em>string</em>) – Known string</li>
+<li><strong>$user_string</strong> (<em>string</em>) – User-supplied string</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">TRUE if the strings match, FALSE otherwise</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">string</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>For more information, please refer to the <a class="reference external" href="http://php.net/hash_equals">PHP manual for
+hash_equals()</a>.</p>
+</dd></dl>
 
-        <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>Hi Sally<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+<dl class="function">
+<dt id="hash_pbkdf2">
+<code class="descname">hash_pbkdf2</code><span class="sig-paren">(</span><em>$algo</em>, <em>$password</em>, <em>$salt</em>, <em>$iterations</em><span class="optional">[</span>, <em>$length = 0</em><span class="optional">[</span>, <em>$raw_output = FALSE</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#hash_pbkdf2" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$algo</strong> (<em>string</em>) – Hashing algorithm</li>
+<li><strong>$password</strong> (<em>string</em>) – Password</li>
+<li><strong>$salt</strong> (<em>string</em>) – Hash salt</li>
+<li><strong>$iterations</strong> (<em>int</em>) – Number of iterations to perform during derivation</li>
+<li><strong>$length</strong> (<em>int</em>) – Output string length</li>
+<li><strong>$raw_output</strong> (<em>bool</em>) – Whether to return raw binary data</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Password-derived key or FALSE on failure</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">string</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>For more information, please refer to the <a class="reference external" href="http://php.net/hash_pbkdf2">PHP manual for
+hash_pbkdf2()</a>.</p>
+</dd></dl>
 
-<span class="cp">&lt;?php</span> <span class="k">elseif</span> <span class="p">(</span><span class="nv">$username</span> <span class="o">===</span> <span class="s1">&#39;joe&#39;</span><span class="p">)</span><span class="o">:</span> <span class="cp">?&gt;</span>
+</div>
+</div>
+<div class="section" id="multibyte-string">
+<h2><a class="toc-backref" href="#id14">Multibyte String</a><a class="headerlink" href="#multibyte-string" title="Permalink to this headline">¶</a></h2>
+<p>This set of compatibility functions offers limited support for PHP’s
+<a class="reference external" href="http://php.net/mbstring">Multibyte String extension</a>. Because of
+the limited alternative solutions, only a few functions are available.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When a character set parameter is ommited,
+<code class="docutils literal"><span class="pre">$config['charset']</span></code> will be used.</p>
+</div>
+<div class="section" id="id3">
+<h3><a class="toc-backref" href="#id15">Dependencies</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="http://php.net/iconv">iconv</a> extension</li>
+</ul>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">This dependency is optional and these functions will
+always be declared. If iconv is not available, they WILL
+fall-back to their non-mbstring versions.</p>
+</div>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">Where a character set is supplied, it must be
+supported by iconv and in a format that it recognizes.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For you own dependency check on the actual mbstring
+extension, use the <code class="docutils literal"><span class="pre">MB_ENABLED</span></code> constant.</p>
+</div>
+</div>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id16">Function reference</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="mb_strlen">
+<code class="descname">mb_strlen</code><span class="sig-paren">(</span><em>$str</em><span class="optional">[</span>, <em>$encoding = NULL</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#mb_strlen" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$str</strong> (<em>string</em>) – Input string</li>
+<li><strong>$encoding</strong> (<em>string</em>) – Character set</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Number of characters in the input string or FALSE on failure</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">string</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>For more information, please refer to the <a class="reference external" href="http://php.net/mb_strlen">PHP manual for
+mb_strlen()</a>.</p>
+</dd></dl>
 
-        <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>Hi Joe<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+<dl class="function">
+<dt id="mb_strpos">
+<code class="descname">mb_strpos</code><span class="sig-paren">(</span><em>$haystack</em>, <em>$needle</em><span class="optional">[</span>, <em>$offset = 0</em><span class="optional">[</span>, <em>$encoding = NULL</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#mb_strpos" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$haystack</strong> (<em>string</em>) – String to search in</li>
+<li><strong>$needle</strong> (<em>string</em>) – Part of string to search for</li>
+<li><strong>$offset</strong> (<em>int</em>) – Search offset</li>
+<li><strong>$encoding</strong> (<em>string</em>) – Character set</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Numeric character position of where $needle was found or FALSE if not found</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">mixed</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>For more information, please refer to the <a class="reference external" href="http://php.net/mb_strpos">PHP manual for
+mb_strpos()</a>.</p>
+</dd></dl>
 
-<span class="cp">&lt;?php</span> <span class="k">else</span><span class="o">:</span> <span class="cp">?&gt;</span>
+<dl class="function">
+<dt id="mb_substr">
+<code class="descname">mb_substr</code><span class="sig-paren">(</span><em>$str</em>, <em>$start</em><span class="optional">[</span>, <em>$length = NULL</em><span class="optional">[</span>, <em>$encoding = NULL</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#mb_substr" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$str</strong> (<em>string</em>) – Input string</li>
+<li><strong>$start</strong> (<em>int</em>) – Position of first character</li>
+<li><strong>$length</strong> (<em>int</em>) – Maximum number of characters</li>
+<li><strong>$encoding</strong> (<em>string</em>) – Character set</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Portion of $str specified by $start and $length or FALSE on failure</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">string</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>For more information, please refer to the <a class="reference external" href="http://php.net/mb_substr">PHP manual for
+mb_substr()</a>.</p>
+</dd></dl>
 
-        <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>Hi unknown user<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+</div>
+</div>
+<div class="section" id="standard-functions">
+<h2><a class="toc-backref" href="#id17">Standard Functions</a><a class="headerlink" href="#standard-functions" title="Permalink to this headline">¶</a></h2>
+<p>This set of compatibility functions offers support for a few
+standard functions in PHP that otherwise require a newer PHP version.</p>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id18">Dependencies</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>None</li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h3><a class="toc-backref" href="#id19">Function reference</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="array_column">
+<code class="descname">array_column</code><span class="sig-paren">(</span><em>array $array</em>, <em>$column_key</em><span class="optional">[</span>, <em>$index_key = NULL</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#array_column" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$array</strong> (<em>array</em>) – Array to fetch results from</li>
+<li><strong>$column_key</strong> (<em>mixed</em>) – Key of the column to return values from</li>
+<li><strong>$index_key</strong> (<em>mixed</em>) – Key to use for the returned values</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">An array of values representing a single column from the input array</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">array</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>For more information, please refer to the <a class="reference external" href="http://php.net/array_column">PHP manual for
+array_column()</a>.</p>
+</dd></dl>
 
-<span class="cp">&lt;?php</span> <span class="k">endif</span><span class="p">;</span> <span class="cp">?&gt;</span>
-</pre></div>
+<dl class="function">
+<dt id="hex2bin">
+<code class="descname">hex2bin</code><span class="sig-paren">(</span><em>$data</em><span class="sig-paren">)</span><a class="headerlink" href="#hex2bin" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$data</strong> (<em>array</em>) – Hexadecimal representation of data</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Binary representation of the given data</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">string</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>For more information, please refer to the <a class="reference external" href="http://php.net/hex2bin">PHP manual for hex2bin()</a>.</p>
+</dd></dl>
+
 </div>
 </div>
 </div>
@@ -502,10 +850,10 @@ closing syntax: <code class="docutils literal"><span class="pre">endif</span></c
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="security.html" class="btn btn-neutral float-right" title="Security">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="routing.html" class="btn btn-neutral float-right" title="URI Routing">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="environments.html" class="btn btn-neutral" title="Handling Multiple Environments"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="common_functions.html" class="btn btn-neutral" title="Common Functions"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
