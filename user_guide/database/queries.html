@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Database Caching Class &mdash; CodeIgniter 3.1.11 documentation</title>
+  <title>Queries &mdash; CodeIgniter 3.1.11 documentation</title>
   
 
   
@@ -35,8 +35,8 @@
         <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="CodeIgniter 3.1.11 documentation" href="../index.html"/>
         <link rel="up" title="Database Reference" href="index.html"/>
-        <link rel="next" title="Database Forge Class" href="forge.html"/>
-        <link rel="prev" title="Custom Function Calls" href="call_function.html"/> 
+        <link rel="next" title="Generating Query Results" href="results.html"/>
+        <link rel="prev" title="Connecting to your Database" href="connecting.html"/> 
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
@@ -161,14 +161,14 @@
 <li class="toctree-l2"><a class="reference internal" href="examples.html">Quick Start: Usage Examples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="configuration.html">Database Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="connecting.html">Connecting to a Database</a></li>
-<li class="toctree-l2"><a class="reference internal" href="queries.html">Running Queries</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Running Queries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="results.html">Generating Query Results</a></li>
 <li class="toctree-l2"><a class="reference internal" href="helpers.html">Query Helper Functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="query_builder.html">Query Builder Class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="transactions.html">Transactions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="metadata.html">Getting MetaData</a></li>
 <li class="toctree-l2"><a class="reference internal" href="call_function.html">Custom Function Calls</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Query Caching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="caching.html">Query Caching</a></li>
 <li class="toctree-l2"><a class="reference internal" href="forge.html">Database Manipulation with Database Forge</a></li>
 <li class="toctree-l2"><a class="reference internal" href="utilities.html">Database Utilities Class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="db_driver_reference.html">Database Driver Reference</a></li>
@@ -345,14 +345,14 @@
 <li class="toctree-l2"><a class="reference internal" href="examples.html">Quick Start: Usage Examples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="configuration.html">Database Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="connecting.html">Connecting to a Database</a></li>
-<li class="toctree-l2"><a class="reference internal" href="queries.html">Running Queries</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Running Queries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="results.html">Generating Query Results</a></li>
 <li class="toctree-l2"><a class="reference internal" href="helpers.html">Query Helper Functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="query_builder.html">Query Builder Class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="transactions.html">Transactions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="metadata.html">Getting MetaData</a></li>
 <li class="toctree-l2"><a class="reference internal" href="call_function.html">Custom Function Calls</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Query Caching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="caching.html">Query Caching</a></li>
 <li class="toctree-l2"><a class="reference internal" href="forge.html">Database Manipulation with Database Forge</a></li>
 <li class="toctree-l2"><a class="reference internal" href="utilities.html">Database Utilities Class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="db_driver_reference.html">Database Driver Reference</a></li>
@@ -410,7 +410,7 @@
       
         <li><a href="index.html">Database Reference</a> &raquo;</li>
       
-    <li>Database Caching Class</li>
+    <li>Queries</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -422,151 +422,167 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="database-caching-class">
-<h1>Database Caching Class<a class="headerlink" href="#database-caching-class" title="Permalink to this headline">¶</a></h1>
-<p>The Database Caching Class permits you to cache your queries as text
-files for reduced database load.</p>
-<div class="admonition important">
-<p class="first admonition-title">Important</p>
-<p class="last">This class is initialized automatically by the database
-driver when caching is enabled. Do NOT load this class manually.</p>
+  <div class="section" id="queries">
+<h1>Queries<a class="headerlink" href="#queries" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="query-basics">
+<h2>Query Basics<a class="headerlink" href="#query-basics" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="regular-queries">
+<h3>Regular Queries<a class="headerlink" href="#regular-queries" title="Permalink to this headline">¶</a></h3>
+<p>To submit a query, use the <strong>query</strong> function:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;YOUR QUERY HERE&#39;</span><span class="p">);</span>
+</pre></div>
 </div>
-<div class="admonition important">
-<p class="first admonition-title">Important</p>
-<p class="last">Not all query result functions are available when you
-use caching. Please read this page carefully.</p>
-</div>
-<div class="section" id="enabling-caching">
-<h2>Enabling Caching<a class="headerlink" href="#enabling-caching" title="Permalink to this headline">¶</a></h2>
-<p>Caching is enabled in three steps:</p>
-<ul class="simple">
-<li>Create a writable directory on your server where the cache files can
-be stored.</li>
-<li>Set the path to your cache folder in your
-application/config/database.php file.</li>
-<li>Enable the caching feature, either globally by setting the preference
-in your application/config/database.php file, or manually as
-described below.</li>
-</ul>
-<p>Once enabled, caching will happen automatically whenever a page is
-loaded that contains database queries.</p>
-</div>
-<div class="section" id="how-does-caching-work">
-<h2>How Does Caching Work?<a class="headerlink" href="#how-does-caching-work" title="Permalink to this headline">¶</a></h2>
-<p>CodeIgniter’s query caching system happens dynamically when your pages
-are viewed. When caching is enabled, the first time a web page is
-loaded, the query result object will be serialized and stored in a text
-file on your server. The next time the page is loaded the cache file
-will be used instead of accessing your database. Your database usage can
-effectively be reduced to zero for any pages that have been cached.</p>
-<p>Only read-type (SELECT) queries can be cached, since these are the only
-type of queries that produce a result. Write-type (INSERT, UPDATE, etc.)
-queries, since they don’t generate a result, will not be cached by the
-system.</p>
-<p>Cache files DO NOT expire. Any queries that have been cached will remain
-cached until you delete them. The caching system permits you clear
-caches associated with individual pages, or you can delete the entire
-collection of cache files. Typically you’ll want to use the housekeeping
-functions described below to delete cache files after certain events
-take place, like when you’ve added new information to your database.</p>
-</div>
-<div class="section" id="will-caching-improve-your-site-s-performance">
-<h2>Will Caching Improve Your Site’s Performance?<a class="headerlink" href="#will-caching-improve-your-site-s-performance" title="Permalink to this headline">¶</a></h2>
-<p>Getting a performance gain as a result of caching depends on many
-factors. If you have a highly optimized database under very little load,
-you probably won’t see a performance boost. If your database is under
-heavy use you probably will see an improved response, assuming your
-file-system is not overly taxed. Remember that caching simply changes
-how your information is retrieved, shifting it from being a database
-operation to a file-system one.</p>
-<p>In some clustered server environments, for example, caching may be
-detrimental since file-system operations are so intense. On single
-servers in shared environments, caching will probably be beneficial.
-Unfortunately there is no single answer to the question of whether you
-should cache your database. It really depends on your situation.</p>
-</div>
-<div class="section" id="how-are-cache-files-stored">
-<h2>How are Cache Files Stored?<a class="headerlink" href="#how-are-cache-files-stored" title="Permalink to this headline">¶</a></h2>
-<p>CodeIgniter places the result of EACH query into its own cache file.
-Sets of cache files are further organized into sub-folders corresponding
-to your controller functions. To be precise, the sub-folders are named
-identically to the first two segments of your URI (the controller class
-name and function name).</p>
-<p>For example, let’s say you have a controller called blog with a function
-called comments that contains three queries. The caching system will
-create a cache folder called blog+comments, into which it will write
-three cache files.</p>
-<p>If you use dynamic queries that change based on information in your URI
-(when using pagination, for example), each instance of the query will
-produce its own cache file. It’s possible, therefore, to end up with
-many times more cache files than you have queries.</p>
-</div>
-<div class="section" id="managing-your-cache-files">
-<h2>Managing your Cache Files<a class="headerlink" href="#managing-your-cache-files" title="Permalink to this headline">¶</a></h2>
-<p>Since cache files do not expire, you’ll need to build deletion routines
-into your application. For example, let’s say you have a blog that
-allows user commenting. Whenever a new comment is submitted you’ll want
-to delete the cache files associated with the controller function that
-serves up your comments. You’ll find two delete functions described
-below that help you clear data.</p>
-</div>
-<div class="section" id="not-all-database-functions-work-with-caching">
-<h2>Not All Database Functions Work with Caching<a class="headerlink" href="#not-all-database-functions-work-with-caching" title="Permalink to this headline">¶</a></h2>
-<p>Lastly, we need to point out that the result object that is cached is a
-simplified version of the full result object. For that reason, some of
-the query result functions are not available for use.</p>
-<p>The following functions ARE NOT available when using a cached result
-object:</p>
-<ul class="simple">
-<li>num_fields()</li>
-<li>field_names()</li>
-<li>field_data()</li>
-<li>free_result()</li>
-</ul>
-<p>Also, the two database resources (result_id and conn_id) are not
-available when caching, since result resources only pertain to run-time
-operations.</p>
-<div class="section" id="function-reference">
-<h3>Function Reference<a class="headerlink" href="#function-reference" title="Permalink to this headline">¶</a></h3>
-</div>
-</div>
-<div class="section" id="this-db-cache-on-this-db-cache-off">
-<h2>$this-&gt;db-&gt;cache_on() / $this-&gt;db-&gt;cache_off()<a class="headerlink" href="#this-db-cache-on-this-db-cache-off" title="Permalink to this headline">¶</a></h2>
-<p>Manually enables/disables caching. This can be useful if you want to
-keep certain queries from being cached. Example:</p>
-<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="c1">// Turn caching on</span>
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">cache_on</span><span class="p">();</span>
-<span class="nv">$query</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM mytable&quot;</span><span class="p">);</span>
-
-<span class="c1">// Turn caching off for this one query</span>
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">cache_off</span><span class="p">();</span>
-<span class="nv">$query</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM members WHERE member_id = &#39;</span><span class="si">$current_user</span><span class="s2">&#39;&quot;</span><span class="p">);</span>
-
-<span class="c1">// Turn caching back on</span>
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">cache_on</span><span class="p">();</span>
-<span class="nv">$query</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM another_table&quot;</span><span class="p">);</span>
+<p>The query() function returns a database result <strong>object</strong> when “read”
+type queries are run, which you can use to <a class="reference internal" href="results.html"><span class="doc">show your
+results</span></a>. When “write” type queries are run it simply
+returns TRUE or FALSE depending on success or failure. When retrieving
+data you will typically assign the query to your own variable, like
+this:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;YOUR QUERY HERE&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="this-db-cache-delete">
-<h2>$this-&gt;db-&gt;cache_delete()<a class="headerlink" href="#this-db-cache-delete" title="Permalink to this headline">¶</a></h2>
-<p>Deletes the cache files associated with a particular page. This is
-useful if you need to clear caching after you update your database.</p>
-<p>The caching system saves your cache files to folders that correspond to
-the URI of the page you are viewing. For example, if you are viewing a
-page at example.com/index.php/blog/comments, the caching system will put
-all cache files associated with it in a folder called blog+comments. To
-delete those particular cache files you will use:</p>
-<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">cache_delete</span><span class="p">(</span><span class="s1">&#39;blog&#39;</span><span class="p">,</span> <span class="s1">&#39;comments&#39;</span><span class="p">);</span>
+<div class="section" id="simplified-queries">
+<h3>Simplified Queries<a class="headerlink" href="#simplified-queries" title="Permalink to this headline">¶</a></h3>
+<p>The <strong>simple_query</strong> method is a simplified version of the
+$this-&gt;db-&gt;query() method. It DOES
+NOT return a database result set, nor does it set the query timer, or
+compile bind data, or store your query for debugging. It simply lets you
+submit a query. Most users will rarely use this function.</p>
+<p>It returns whatever the database drivers’ “execute” function returns.
+That typically is TRUE/FALSE on success or failure for write type queries
+such as INSERT, DELETE or UPDATE statements (which is what it really
+should be used for) and a resource/object on success for queries with
+fetchable results.</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">simple_query</span><span class="p">(</span><span class="s1">&#39;YOUR QUERY&#39;</span><span class="p">))</span>
+<span class="p">{</span>
+        <span class="k">echo</span> <span class="s2">&quot;Success!&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">else</span>
+<span class="p">{</span>
+        <span class="k">echo</span> <span class="s2">&quot;Query failed!&quot;</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<p>If you do not use any parameters the current URI will be used when
-determining what should be cleared.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">PostgreSQL’s <code class="docutils literal"><span class="pre">pg_exec()</span></code> function (for example) always
+returns a resource on success, even for write type queries.
+So take that in mind if you’re looking for a boolean value.</p>
 </div>
-<div class="section" id="this-db-cache-delete-all">
-<h2>$this-&gt;db-&gt;cache_delete_all()<a class="headerlink" href="#this-db-cache-delete-all" title="Permalink to this headline">¶</a></h2>
-<p>Clears all existing cache files. Example:</p>
-<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">cache_delete_all</span><span class="p">();</span>
+</div>
+</div>
+<div class="section" id="working-with-database-prefixes-manually">
+<h2>Working with Database prefixes manually<a class="headerlink" href="#working-with-database-prefixes-manually" title="Permalink to this headline">¶</a></h2>
+<p>If you have configured a database prefix and would like to prepend it to
+a table name for use in a native SQL query for example, then you can use
+the following:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">dbprefix</span><span class="p">(</span><span class="s1">&#39;tablename&#39;</span><span class="p">);</span> <span class="c1">// outputs prefix_tablename</span>
+</pre></div>
+</div>
+<p>If for any reason you would like to change the prefix programatically
+without needing to create a new connection, you can use this method:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">set_dbprefix</span><span class="p">(</span><span class="s1">&#39;newprefix_&#39;</span><span class="p">);</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">dbprefix</span><span class="p">(</span><span class="s1">&#39;tablename&#39;</span><span class="p">);</span> <span class="c1">// outputs newprefix_tablename</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="protecting-identifiers">
+<h2>Protecting identifiers<a class="headerlink" href="#protecting-identifiers" title="Permalink to this headline">¶</a></h2>
+<p>In many databases it is advisable to protect table and field names - for
+example with backticks in MySQL. <strong>Query Builder queries are
+automatically protected</strong>, however if you need to manually protect an
+identifier you can use:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">protect_identifiers</span><span class="p">(</span><span class="s1">&#39;table_name&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">Although the Query Builder will try its best to properly
+quote any field and table names that you feed it, note that it
+is NOT designed to work with arbitrary user input. DO NOT feed it
+with unsanitized user data.</p>
+</div>
+<p>This function will also add a table prefix to your table, assuming you
+have a prefix specified in your database config file. To enable the
+prefixing set TRUE (boolean) via the second parameter:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">protect_identifiers</span><span class="p">(</span><span class="s1">&#39;table_name&#39;</span><span class="p">,</span> <span class="k">TRUE</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="escaping-queries">
+<h2>Escaping Queries<a class="headerlink" href="#escaping-queries" title="Permalink to this headline">¶</a></h2>
+<p>It’s a very good security practice to escape your data before submitting
+it into your database. CodeIgniter has three methods that help you do
+this:</p>
+<ol class="arabic">
+<li><p class="first"><strong>$this-&gt;db-&gt;escape()</strong> This function determines the data type so
+that it can escape only string data. It also automatically adds
+single quotes around the data so you don’t have to:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$sql</span> <span class="o">=</span> <span class="s2">&quot;INSERT INTO table (title) VALUES(&quot;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">escape</span><span class="p">(</span><span class="nv">$title</span><span class="p">)</span><span class="o">.</span><span class="s2">&quot;)&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><strong>$this-&gt;db-&gt;escape_str()</strong> This function escapes the data passed to
+it, regardless of type. Most of the time you’ll use the above
+function rather than this one. Use the function like this:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$sql</span> <span class="o">=</span> <span class="s2">&quot;INSERT INTO table (title) VALUES(&#39;&quot;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">escape_str</span><span class="p">(</span><span class="nv">$title</span><span class="p">)</span><span class="o">.</span><span class="s2">&quot;&#39;)&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><strong>$this-&gt;db-&gt;escape_like_str()</strong> This method should be used when
+strings are to be used in LIKE conditions so that LIKE wildcards
+(‘%’, ‘_’) in the string are also properly escaped.</p>
+</li>
+</ol>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$search</span> <span class="o">=</span> <span class="s1">&#39;20% raise&#39;</span><span class="p">;</span>
+<span class="nv">$sql</span> <span class="o">=</span> <span class="s2">&quot;SELECT id FROM table WHERE column LIKE &#39;%&quot;</span> <span class="o">.</span>
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">escape_like_str</span><span class="p">(</span><span class="nv">$search</span><span class="p">)</span><span class="o">.</span><span class="s2">&quot;%&#39; ESCAPE &#39;!&#39;&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">The <code class="docutils literal"><span class="pre">escape_like_str()</span></code> method uses ‘!’ (exclamation mark)
+to escape special characters for <em>LIKE</em> conditions. Because this
+method escapes partial strings that you would wrap in quotes
+yourself, it cannot automatically add the <code class="docutils literal"><span class="pre">ESCAPE</span> <span class="pre">'!'</span></code>
+condition for you, and so you’ll have to manually do that.</p>
+</div>
+</div>
+<div class="section" id="query-bindings">
+<h2>Query Bindings<a class="headerlink" href="#query-bindings" title="Permalink to this headline">¶</a></h2>
+<p>Bindings enable you to simplify your query syntax by letting the system
+put the queries together for you. Consider the following example:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$sql</span> <span class="o">=</span> <span class="s2">&quot;SELECT * FROM some_table WHERE id = ? AND status = ? AND author = ?&quot;</span><span class="p">;</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="nv">$sql</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;live&#39;</span><span class="p">,</span> <span class="s1">&#39;Rick&#39;</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>The question marks in the query are automatically replaced with the
+values in the array in the second parameter of the query function.</p>
+<p>Binding also work with arrays, which will be transformed to IN sets:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$sql</span> <span class="o">=</span> <span class="s2">&quot;SELECT * FROM some_table WHERE id IN ? AND status = ? AND author = ?&quot;</span><span class="p">;</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="nv">$sql</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="s1">&#39;live&#39;</span><span class="p">,</span> <span class="s1">&#39;Rick&#39;</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>The resulting query will be:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nx">SELECT</span> <span class="o">*</span> <span class="nx">FROM</span> <span class="nx">some_table</span> <span class="nx">WHERE</span> <span class="nx">id</span> <span class="nx">IN</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span> <span class="k">AND</span> <span class="nx">status</span> <span class="o">=</span> <span class="s1">&#39;live&#39;</span> <span class="k">AND</span> <span class="nx">author</span> <span class="o">=</span> <span class="s1">&#39;Rick&#39;</span>
+</pre></div>
+</div>
+<p>The secondary benefit of using binds is that the values are
+automatically escaped, producing safer queries. You don’t have to
+remember to manually escape data; the engine does it automatically for
+you.</p>
+</div>
+<div class="section" id="handling-errors">
+<h2>Handling Errors<a class="headerlink" href="#handling-errors" title="Permalink to this headline">¶</a></h2>
+<p><strong>$this-&gt;db-&gt;error();</strong></p>
+<p>If you need to get the last error that has occurred, the error() method
+will return an array containing its code and message. Here’s a quick
+example:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span> <span class="o">!</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">simple_query</span><span class="p">(</span><span class="s1">&#39;SELECT `example_field` FROM `example_table`&#39;</span><span class="p">))</span>
+<span class="p">{</span>
+        <span class="nv">$error</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">error</span><span class="p">();</span> <span class="c1">// Has keys &#39;code&#39; and &#39;message&#39;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -578,10 +594,10 @@ determining what should be cleared.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="forge.html" class="btn btn-neutral float-right" title="Database Forge Class">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="results.html" class="btn btn-neutral float-right" title="Generating Query Results">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="call_function.html" class="btn btn-neutral" title="Custom Function Calls"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="connecting.html" class="btn btn-neutral" title="Connecting to your Database"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
